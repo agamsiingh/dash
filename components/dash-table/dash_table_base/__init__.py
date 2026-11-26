@@ -1,5 +1,3 @@
-# type: ignore
-
 import os as _os
 import sys as _sys
 import json
@@ -20,7 +18,7 @@ from ._imports_ import __all__ as _components
 from . import Format  # noqa: F401, E402
 from . import FormatTemplate  # noqa: F401, E402
 
-__all__ = _components + ["Format", "FormatTemplate"]
+__all__ = _components + ["Format", "FormatTemplate"]  # type: ignore[reportUnsupportedDunderAll]
 
 _basepath = _os.path.dirname(__file__)
 _filepath = _os.path.abspath(_os.path.join(_basepath, "package-info.json"))
@@ -89,7 +87,7 @@ _js_dist.extend(
     ]
 )
 
-_css_dist = []
+_css_dist: list = []
 
 
 for _component in __all__:

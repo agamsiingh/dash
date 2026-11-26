@@ -491,3 +491,24 @@ def test_typi003_dash_constructor_typing(
     codefile = os.path.join(tmp_path, "code.py")
     code = format_template_and_save(dash_constructor_template, codefile, arguments)
     assert_output(codefile, code, module=typing_module, **assertions)
+
+
+dash_table_template = """
+from dash import dash_table
+
+table = dash_table.DataTable(id="table", {0})
+"""
+
+
+@pytest.mark.parametrize("typing_module", typing_modules)
+@pytest.mark.parametrize(
+    "arguments, assertions",
+    [
+        ("page_size=10", expect(status=0)),
+        ("page_size='ten'", expect(status=1, outputs=["page_size"])),
+    ],
+)
+def test_typi004_data_table_typing(typing_module, arguments, assertions, tmp_path):
+    codefile = os.path.join(tmp_path, "code.py")
+    code = format_template_and_save(dash_table_template, codefile, arguments)
+    assert_output(codefile, code, module=typing_module, **assertions)
